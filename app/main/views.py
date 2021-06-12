@@ -148,4 +148,41 @@ def upvote(id, vote_type):
     to_str = f'{vote_type}:{current_user.id}:{id}'
     print(f'The current vote is {to_str}')
 
+
+#upvoting/downvoting pitches
+@main.route('/pitch/upvote/<int:id>&<int:vote_type>')
+@login_required
+def upvote(id, vote_type):
+    """
+    View function to add votes to table
+    """
+    # Query for user
+    votes = Votes.query.filter_by(user_id=current_user.id).all()
+    print(f'The new vote is {votes}')
+    to_str = f'{vote_type}:{current_user.id}:{id}'
+    print(f'The current vote is {to_str}')
+
+    if not votes:
+        new_vote = Votes(vote=vote_type,
+                         user_id=current_user.id,
+                         pitches_id=id)
+        new_vote.save_vote()
+        # print(len(count_likes))
+        print('YOU HAVE new VOTED')
+
+    for vote in votes:
+        if f'{vote}' == to_str:
+            print('YOU CANNOT VOTE MORE THAN ONCE')
+            break
+        else:
+            new_vote = Votes(vote=vote_type,
+                             user_id=current_user.id,
+                             pitches_id=id)
+            new_vote.save_vote()
+            print('YOU HAVE VOTED')
+            break
+
+    return redirect(url_for('.view_pitch', id=id))
+
+
     return redirect(url_for('.view_pitch', id=id))
