@@ -134,3 +134,18 @@ def post_comment(id):
 
     return render_template('post_comment.html', comment_form=form, title=title)
 
+
+#upvoting/downvoting pitches
+@main.route('/pitch/upvote/<int:id>&<int:vote_type>')
+@login_required
+def upvote(id, vote_type):
+    """
+    View function to add votes to table
+    """
+    # Query for user
+    votes = Votes.query.filter_by(user_id=current_user.id).all()
+    print(f'The new vote is {votes}')
+    to_str = f'{vote_type}:{current_user.id}:{id}'
+    print(f'The current vote is {to_str}')
+
+    return redirect(url_for('.view_pitch', id=id))
