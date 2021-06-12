@@ -75,29 +75,35 @@ class Pitch(db.Model):
 
     __tablename__ = 'pitches'
 
-    id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.String())
-    category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    comment = db.relationship("Comments", backref="pitches", lazy="dynamic")
-    vote = db.relationship("Votes", backref="pitches", lazy="dynamic")
+    id = db.Column(db.Integer,primary_key = True)
+    pitch_id = db.Column(db.Integer)
+    pitch_title = db.Column(db.String)
+    pitch_category = db.Column(db.String)
+    pitch_comment = db.Column(db.String)
+    posted = db.Column(db.DateTime,default=datetime.utcnow)
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    likes = db.Column(db.Integer)
+    dislikes = db.Column(db.Integer)
+
+    comment = db.relationship('Comments',backref =  'pitch',lazy = "dynamic")
 
     def save_pitch(self):
-        """
-        Save the pitches 
-        """
         db.session.add(self)
         db.session.commit()
 
     @classmethod
+    def get_pitches(cls,category):
+        pitches = Pitch.query.filter_by(pitch_category=category).all()
+        return pitches
+
+    @classmethod
+    def getPitchId(cls,id):
+        pitch = Pitch.query.filter_by(id=id).first()
+        return pitch
+
+    @classmethod
     def clear_pitches(cls):
         Pitch.all_pitches.clear()
-
-    # display pitches
-
-    def get_pitches(id):
-        pitches = Pitch.query.filter_by(category_id=id).all()
-        return pitches
 
 
 class Votes(db.Model):

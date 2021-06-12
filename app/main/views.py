@@ -1,5 +1,6 @@
 from flask import render_template, redirect, url_for, abort
 from flask_login import login_required, current_user
+from wtforms import form
 from .forms import PitchForm, CommentForm, CategoryForm
 from . import main
 from .. import db
@@ -25,30 +26,28 @@ def index():
 
 
 #new pitch
-@main.route('/category/new-pitch/<int:id>', methods=['GET', 'POST'])
 @login_required
-def new_pitch(id):
-    """
-    Function to add new pitch
-    """
-
+@main.route('/pitch/newpitch', methods=['POST', 'GET'])
+@login_required
+def new_pitch():
     form = PitchForm()
-    category = PitchCategory.query.filter_by(id=id).first()
-
-    if category is None:
-        abort(404)
-
     if form.validate_on_submit():
-        content = form.content.data
-        new_pitch = Pitch(content=content,
-                          category_id=category.id,
-                          user_id=current_user.id)
-        new_pitch.save_pitch()
-        return redirect(url_for('.category', id=category.id))
+        title = form.pitch_title.data
+        category = form.pitch_category.data
+        yourPitch = form.pitch_comment.data
 
-    return render_template('new_pitch.html',
-                           pitch_form=form,
-                           category=category)
+        #update pitch instance
+        new_pitch = Pitch(pitch_title=title,
+                          pitch_category=category,
+                          pitch_comment=yourPitch,
+                          user=current_user)
+
+        #save pitch
+        new_pitch.save_pitch()
+        return redirect(url_for('.index'))
+
+    title = 'NEW PITCH'
+    return render_template('pitch.html', title=title, pitchform=form)
 
 
 @main.route('/categories/<int:id>')
@@ -134,6 +133,7 @@ def post_comment(id):
 
     return render_template('post_comment.html', comment_form=form, title=title)
 
+
 #upvoting/downvoting pitches
 @main.route('/pitch/upvote/<int:id>&<int:vote_type>')
 @login_required
@@ -166,8 +166,5 @@ def upvote(id, vote_type):
             new_vote.save_vote()
             print('YOU HAVE VOTED')
             break
-
-    return redirect(url_for('.view_pitch', id=id))
-
 
     return redirect(url_for('.view_pitch', id=id))

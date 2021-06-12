@@ -1,8 +1,8 @@
 """Initial Migration
 
-Revision ID: fe73c9416b2a
+Revision ID: cb57d7368b34
 Revises: 
-Create Date: 2021-06-12 00:10:43.937519
+Create Date: 2021-06-12 22:06:49.454332
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'fe73c9416b2a'
+revision = 'cb57d7368b34'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -34,12 +34,17 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_users_email'), 'users', ['email'], unique=True)
+    op.create_index(op.f('ix_users_username'), 'users', ['username'], unique=False)
     op.create_table('pitches',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('content', sa.String(), nullable=True),
-    sa.Column('category_id', sa.Integer(), nullable=True),
+    sa.Column('pitch_id', sa.Integer(), nullable=True),
+    sa.Column('pitch_title', sa.String(), nullable=True),
+    sa.Column('pitch_category', sa.String(), nullable=True),
+    sa.Column('pitch_comment', sa.String(), nullable=True),
+    sa.Column('posted', sa.DateTime(), nullable=True),
     sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['category_id'], ['categories.id'], ),
+    sa.Column('likes', sa.Integer(), nullable=True),
+    sa.Column('dislikes', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -70,6 +75,7 @@ def downgrade():
     op.drop_table('votes')
     op.drop_table('comments')
     op.drop_table('pitches')
+    op.drop_index(op.f('ix_users_username'), table_name='users')
     op.drop_index(op.f('ix_users_email'), table_name='users')
     op.drop_table('users')
     op.drop_table('categories')

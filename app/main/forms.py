@@ -7,8 +7,17 @@ class PitchForm(FlaskForm):
     """
     form for creating a pitch
     """
-    content = TextAreaField('WRITE YOUR PITCH')
-    submit = SubmitField('SUBMIT')
+    pitch_title = StringField('Title', validators=[Required()])
+    pitch_category = SelectField('Category',
+                                 choices=[('Select category',
+                                           'Select category'),
+                                          ('interview', 'Interview'),
+                                          ('product', 'Product'),
+                                          ('promotion', 'Promotion'),
+                                          ('pickup', 'Pickup Lines')],
+                                 validators=[Required()])
+    pitch_comment = TextAreaField('Your Pitch')
+    submit = SubmitField('Submit')
 
 
 class CategoryForm(FlaskForm):
