@@ -1,12 +1,13 @@
-% macro displayCategoryList(category_list) %}
-{% for category in category_list %}
-
-<li><a href="{{url_for('.category',id=category.id)}}">
+{% macro displayCategoryList(category_list) %}
+{% for category in category_liss %}
+<li>
+    <a href="{{url_for('.category',id=category.id)}}">
         {{category.name|upper}}
     </a>
 </li>
 {% endfor %}
 {% endmacro %}
+
 
 {% macro displayAllPitches(pitches) %}
 {% for pitch in pitches %}
@@ -19,6 +20,7 @@
 </div>
 {% endfor %}
 {% endmacro %}
+
 
 {% macro displayPitches(pitch_list) %}
 {% for pitches in pitch_list %}

@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, abort
+from flask import render_template, redirect, url_for, abort
 from flask_login import login_required, current_user
 from .forms import PitchForm, CommentForm, CategoryForm
 from . import main
@@ -14,7 +14,7 @@ def index():
     """
 
     all_category = PitchCategory.get_categories()
-    all_pitches = Pitch.query.order_by('-id').all()
+    all_pitches = Pitch.query.order_by('id').all()
     print(all_pitches)
 
     title = 'The Pitch Manifesto'
@@ -133,21 +133,6 @@ def post_comment(id):
         return redirect(url_for('.view_pitch', id=pitches.id))
 
     return render_template('post_comment.html', comment_form=form, title=title)
-
-
-#upvoting/downvoting pitches
-@main.route('/pitch/upvote/<int:id>&<int:vote_type>')
-@login_required
-def upvote(id, vote_type):
-    """
-    View function to add votes to table
-    """
-    # Query for user
-    votes = Votes.query.filter_by(user_id=current_user.id).all()
-    print(f'The new vote is {votes}')
-    to_str = f'{vote_type}:{current_user.id}:{id}'
-    print(f'The current vote is {to_str}')
-
 
 #upvoting/downvoting pitches
 @main.route('/pitch/upvote/<int:id>&<int:vote_type>')
