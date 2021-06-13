@@ -23,7 +23,7 @@ class User(UserMixin, db.Model):
 
     #create the columns
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(255),index = True)
+    username = db.Column(db.String(255), index=True)
     email = db.Column(db.String(255), unique=True, index=True)
     password_hash = db.Column(db.String(255))
     bio = db.Column(db.String(255))
@@ -75,29 +75,29 @@ class Pitch(db.Model):
 
     __tablename__ = 'pitches'
 
-    id = db.Column(db.Integer,primary_key = True)
+    id = db.Column(db.Integer, primary_key=True)
     pitch_id = db.Column(db.Integer)
     pitch_title = db.Column(db.String)
     pitch_category = db.Column(db.String)
     pitch_comment = db.Column(db.String)
-    posted = db.Column(db.DateTime,default=datetime.utcnow)
-    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    posted = db.Column(db.DateTime, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     likes = db.Column(db.Integer)
     dislikes = db.Column(db.Integer)
 
-    comment = db.relationship('Comments',backref =  'pitch',lazy = "dynamic")
+    comment = db.relationship('Comments', backref='pitch', lazy="dynamic")
 
     def save_pitch(self):
         db.session.add(self)
         db.session.commit()
 
     @classmethod
-    def get_pitches(cls,category):
+    def get_pitches(cls, category):
         pitches = Pitch.query.filter_by(pitch_category=category).all()
         return pitches
 
     @classmethod
-    def getPitchId(cls,id):
+    def getPitchId(cls, id):
         pitch = Pitch.query.filter_by(id=id).first()
         return pitch
 

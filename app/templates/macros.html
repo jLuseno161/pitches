@@ -25,12 +25,12 @@
 {%for pitch in pitches_list%}
 <div class=" col-lg-4 movie-card">
     <div class="card col-sm mt-2">
-        <div class="well well-lg p-3" style="text-align: center;">
+        <div class="well well-lg p-3" style="text-align: left;">
             <h3>{{pitch.pitch_title}}</h3>
             <hr>
             <p>{{pitch.pitch_comment|truncate(50)}}</p>
-            <p>By : {{pitch.user.username}} </p>
-            <p>Posted on: {{pitch.posted}}</p>
+            <p>Posted By : {{pitch.user.username}} </p>
+            <p>Posted on: {{pitch.posted.strftime('%d.%m.%Y')}}</p>
             <a href="/comment/{{pitch.id}}" class="btn btn-default btn-center -center">
                 Comment</a>
         </div>
