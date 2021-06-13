@@ -24,7 +24,6 @@ def index():
                            categories=all_category,
                            all_pitches=all_pitches)
 
-
 #new pitch
 @login_required
 @main.route('/pitch/newpitch', methods=['POST', 'GET'])
@@ -146,7 +145,7 @@ def view_pitch(id):
 
 
 #comment
-@main.route('/write_comment/<int:id>', methods=['GET', 'POST'])
+@main.route('/user-comment/<int:id>', methods=['GET', 'POST'])
 @login_required
 def post_comment(id):
     """ 
@@ -166,9 +165,9 @@ def post_comment(id):
                                user_id=current_user.id,
                                pitches_id=pitches.id)
         new_comment.save_comment()
-        return redirect(url_for('.view_pitch', id=pitches.id))
+        return redirect(url_for('.index', id=pitches.id))
 
-    return render_template('post_comment.html', comment_form=form, title=title)
+    return render_template('comment.html', commentform=form, title=title)
 
 
 #upvoting/downvoting pitches

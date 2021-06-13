@@ -1,6 +1,13 @@
 {% extends 'base.html'%}
 {% import 'macros.html' as macro %}
 {% block content%}
+<style>
+    .pitch1 {
+        font-weight: 700;
+        color: goldenrod;
+
+    }
+</style>
 <div class="container">
     <div class="row">
         <div class="col-md-3">
@@ -20,9 +27,6 @@
                     Add New Category
                 </button>
             </h4>
-            <!-- <ol class="category-list">
-                {{ macro.displayCategoryList(categories) }}
-            </ol> -->
         </div>
     </div>
     <div class="jumbotron jumbotron-fluid"
@@ -45,9 +49,10 @@
         <div class="col-sm-4">
             <div class="card ">
                 <div class="well well-lg p-3" style="text-align: center;">
-                    <h3 class="">Interviews Pitches</h3>
+                    <h3 class="pitch1">Interviews Pitches</h3>
                     <hr>
-                    <p>A summary of how one will conduct themselves and answer questions during an interview </p>
+                    <p>Basically a succinct introduction to yourself and your background, what you do and why you do it.
+                    </p>
                     <a href="{{url_for('main.getInterviewPitch')}}" class="btn btn-default btn-center -center">
                         View Pitch</a>
                 </div>
@@ -56,9 +61,9 @@
         <div class="col-sm-4">
             <div class=" card">
                 <div class="well well-lg p-3" style="text-align: center;">
-                    <h3>Promotion Pitches</h3>
+                    <h3 class="pitch1">Promotion Pitches</h3>
                     <hr>
-                    <p>A summary of how promotional pitches should look like.How they are structured. </p>
+                    <p>Example of promotional pitches that would make you or your business to stand out </p>
                     <a href="{{url_for('main.getPromoPitch')}}" class="btn btn-default btn-center -center">
                         View Pitch</a>
                 </div>
@@ -68,9 +73,9 @@
         <div class="col-sm-4">
             <div class=" card">
                 <div class="well well-lg p-3" style="text-align: center;">
-                    <h3>Product Pitches</h3>
+                    <h3 class="pitch1">Product Pitches</h3>
                     <hr>
-                    <p>A summary of what should be included in a product pitch </p>
+                    <p>A summary of what should be included in a product pitch with examples </p>
                     <a href="{{url_for('main.getProductPitch')}}" class="btn btn-default btn-center -center">
                         View Pitch</a>
                 </div>
@@ -81,9 +86,9 @@
         <div class="col-sm-4">
             <div class=" card">
                 <div class="well well-lg p-3" style="text-align: center;">
-                    <h3>Pickup Lines Pitches</h3>
+                    <h3 class="pitch1">Pickup Lines Pitches</h3>
                     <hr>
-                    <p> Some of the pickup lines that should be included in your pitch</p>
+                    <p> Best pickup lines that should be included in your pitch</p>
                     <a href="{{url_for('main.getLinesPitch')}}" class="btn btn-default btn-center -center">
                         View Pitch</a>
                 </div>
@@ -92,9 +97,9 @@
         <div class="col-sm-4">
             <div class=" card">
                 <div class="well well-lg p-3" style="text-align: center;">
-                    <h3>Funny Pitches</h3>
+                    <h3 class="pitch1">Humorous Pitches</h3>
                     <hr>
-                    <p> Funny pitches that should be included in your pitch</p>
+                    <p>The kind of pitches that would put a smile on your face all day</p>
                     <a href="{{url_for('main.getFunnyPitch')}}" class="btn btn-default btn-center -center">
                         View Pitch</a>
                 </div>
@@ -103,9 +108,9 @@
         <div class="col-sm-4">
             <div class="card">
                 <div class="well well-lg p-3" style="text-align: center;">
-                    <h3>Business Pitches</h3>
+                    <h3 class="pitch1">Business Pitches</h3>
                     <hr>
-                    <p> Some of the best business ideas</p>
+                    <p> Pitches to investors to contribute or promote new or existing business ideas.</p>
                     <a href="{{url_for('main.getBusinessPitch')}}" class="btn btn-default btn-center -center">
                         View Pitch</a>
                 </div>
