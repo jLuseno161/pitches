@@ -7,10 +7,6 @@ from datetime import datetime
 
 @login_manager.user_loader
 def load_user(user_id):
-    """
-    @login_manager.user_loader Passes in a user_id to this function
-    Function queries the database and gets a user's id as a response
-    """
     return User.query.get(int(user_id))
 
 
@@ -135,7 +131,6 @@ class Comments(db.Model):
     """
     User comment model for each pitch 
     """
-
     __tablename__ = 'comments'
 
     # add columns
@@ -146,9 +141,6 @@ class Comments(db.Model):
     pitches_id = db.Column(db.Integer, db.ForeignKey("pitches.id"))
 
     def save_comment(self):
-        """
-        Save the Comments/comments per pitch
-        """
         db.session.add(self)
         db.session.commit()
 

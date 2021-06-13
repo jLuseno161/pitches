@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, abort
+from flask import render_template, request, redirect, url_for, abort
 from flask_login import login_required, current_user
 from wtforms import form
 from .forms import PitchForm, CommentForm, CategoryForm
@@ -23,6 +23,7 @@ def index():
                            title=title,
                            categories=all_category,
                            all_pitches=all_pitches)
+
 
 #new pitch
 @login_required
@@ -120,87 +121,45 @@ def new_category():
 
 
 #view single pitch alongside its comments
-@main.route('/view-pitch/<int:id>', methods=['GET', 'POST'])
-@login_required
-def view_pitch(id):
-    """
-    Function the returns a pitch for a comment to be added
-    """
-    all_category = PitchCategory.get_categories()
-    pitches = Pitch.query.get(id)
-
-    if pitches is None:
-        abort(404)
-    #
-    comment = Comments.get_comments(id)
-    count_likes = Votes.query.filter_by(pitches_id=id, vote=1).all()
-    count_dislikes = Votes.query.filter_by(pitches_id=id, vote=2).all()
-    return render_template('view-pitch.html',
-                           pitches=pitches,
-                           comment=comment,
-                           count_likes=len(count_likes),
-                           count_dislikes=len(count_dislikes),
-                           category_id=id,
-                           categories=all_category)
-
-
-#comment
-@main.route('/user-comment/<int:id>', methods=['GET', 'POST'])
+@main.route('/comment/<int:id>', methods=['POST', 'GET'])
 @login_required
 def post_comment(id):
-    """ 
-    Function to post comments 
-    """
+    pitche = Pitch.getPitchId(id)
+    comments = Comments.get_comments(id)
+
+    if request.args.get("like"):
+        pitche.likes = pitche.likes + 1
+
+        db.session.add(pitche)
+        db.session.commit()
+
+        return redirect(".comment".format(pitch_id=category.id))
+
+    elif request.args.get("dislike"):
+        pitche.dislikes = pitche.dislikes + 1
+
+        db.session.add(pitche)
+        db.session.commit()
+
+        return redirect(".comment".format(pitch_id=category.id))
 
     form = CommentForm()
-    title = 'post comment'
-    pitches = Pitch.query.filter_by(id=id).first()
-
-    if pitches is None:
-        abort(404)
-
     if form.validate_on_submit():
-        opinion = form.opinion.data
-        new_comment = Comments(opinion=opinion,
-                               user_id=current_user.id,
-                               pitches_id=pitches.id)
-        new_comment.save_comment()
-        return redirect(url_for('.index', id=pitches.id))
+        comment = form.opinion.data
 
-    return render_template('comment.html', commentform=form, title=title)
+        new_comment = Comments(opinion=comment,
+                               user_id=current_user.id,
+                               pitches_id=pitche.id)
+
+        new_comment.save_comment()
+
+        return redirect(url_for('main.post_comment', id=pitche.id))
+    return render_template('comment.html',
+                           commentform=form,
+                           comments=comments,
+                           pitch=pitche)
 
 
 #upvoting/downvoting pitches
-@main.route('/pitch/upvote/<int:id>&<int:vote_type>')
-@login_required
-def upvote(id, vote_type):
-    """
-    View function to add votes to table
-    """
-    # Query for user
-    votes = Votes.query.filter_by(user_id=current_user.id).all()
-    print(f'The new vote is {votes}')
-    to_str = f'{vote_type}:{current_user.id}:{id}'
-    print(f'The current vote is {to_str}')
+# @main.route('/pitch/upvote/<int:id>&<int:vote_type>')
 
-    if not votes:
-        new_vote = Votes(vote=vote_type,
-                         user_id=current_user.id,
-                         pitches_id=id)
-        new_vote.save_vote()
-        # print(len(count_likes))
-        print('YOU HAVE new VOTED')
-
-    for vote in votes:
-        if f'{vote}' == to_str:
-            print('YOU CANNOT VOTE MORE THAN ONCE')
-            break
-        else:
-            new_vote = Votes(vote=vote_type,
-                             user_id=current_user.id,
-                             pitches_id=id)
-            new_vote.save_vote()
-            print('YOU HAVE VOTED')
-            break
-
-    return redirect(url_for('.view_pitch', id=id))

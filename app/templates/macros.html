@@ -7,20 +7,6 @@
 </li>
 {% endfor %}
 {% endmacro %}
-
-
-{% macro displayAllPitches(pitches) %}
-{% for pitch in pitches %}
-<div>
-    <div class="col-md-12">
-        <h4>{{pitch.user.username}}</h4>
-        <p>{{pitch.content}}</p>
-        <p><a class="btn btn-success" href="{{url_for('.post_comment',id=pitch.id)}}"> Add your comment</a></p>
-    </div>
-</div>
-{% endfor %}
-{% endmacro %}
-
 {% macro displayPitches(pitches_list)%}
 {%for pitch in pitches_list%}
 <div class=" col-lg-4 movie-card">
@@ -54,8 +40,8 @@
                     </button>
                 </div>
                 <div class=col-md-6>
-                    <a href="{{url_for('main.post_comment',id=pitch.id)}}" class="btn btn-default btn-center -center"> <svg
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    <a href="{{url_for('main.post_comment',id=pitch.id)}}" class="btn btn-default btn-center -center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-pen-fill" viewBox="0 0 16 16">
                             <path
                                 d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z" />
@@ -68,19 +54,17 @@
 </div>
 {% endfor %}
 {%endmacro%}
-
-{% macro displaySpecificPitch(specific_pitch_list) %}
-{% for comment in specific_pitch_list %}
-<div>
-    <hr>
-    <p>{{comment.opinion}} </p>
-    <p></p>{{comment.time_posted.strftime('%Y/%m/%d || %r') }}</p>
-</div>
-{% endfor %}
-{% endmacro %}
-
 {% macro displayCategory(category_list) %}
 {% for category in category_list%}
 <a href="{{url_for('.category',id=category.id)}}">{{category.name|upper}} </a>
 {% endfor %}
 {% endmacro %}
+
+{%macro displayComments(comments_list)%}
+{%for comment in comments_list%}
+<div class="col-md-12">
+    <p>{{comment.opinion}}</p>
+    <h5>By : {{comment.user.username}}</h5>
+</div>
+{%endfor%}
+{%endmacro%}
