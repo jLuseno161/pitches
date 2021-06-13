@@ -26,7 +26,7 @@ class User(UserMixin, db.Model):
     profile_pic_path = db.Column(db.String())
     pitches = db.relationship("Pitch", backref="user", lazy="dynamic")
     comment = db.relationship("Comments", backref="user", lazy="dynamic")
-    vote = db.relationship("Votes", backref="user", lazy="dynamic")
+    # vote = db.relationship("Votes", backref="user", lazy="dynamic")
 
     # securing passwords
     @property
@@ -42,27 +42,6 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return f'User {self.username}'
-
-
-class PitchCategory(db.Model):
-
-    __tablename__ = 'categories'
-
-    # table columns
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255))
-    description = db.Column(db.String(255))
-
-    # save pitches
-    def save_category(self):
-        db.session.add(self)
-        db.session.commit()
-
-    @classmethod
-    def get_categories(cls):
-        categories = PitchCategory.query.all()
-        return categories
-
 
 class Pitch(db.Model):
     """
@@ -87,6 +66,10 @@ class Pitch(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    def save_vote(self:likes):
+        db.session.add(self)
+        db.session.commit()
+
     @classmethod
     def get_pitches(cls, category):
         pitches = Pitch.query.filter_by(pitch_category=category).all()
@@ -102,29 +85,29 @@ class Pitch(db.Model):
         Pitch.all_pitches.clear()
 
 
-class Votes(db.Model):
-    """
-    class to model votes
-    """
-    __tablename__ = 'votes'
+# class Votes(db.Model):
+#     """
+#     class to model votes
+#     """
+#     __tablename__ = 'votes'
 
-    id = db.Column(db.Integer, primary_key=True)
-    vote = db.Column(db.Integer)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    pitches_id = db.Column(db.Integer, db.ForeignKey("pitches.id"))
+#     id = db.Column(db.Integer, primary_key=True)
+#     vote = db.Column(db.Integer)
+#     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+#     pitches_id = db.Column(db.Integer, db.ForeignKey("pitches.id"))
 
-    def save_vote(self):
-        db.session.add(self)
-        db.session.commit()
+#     def save_vote(self):
+#         db.session.add(self)
+#         db.session.commit()
 
-    @classmethod
-    def get_votes(cls, user_id, pitches_id):
-        votes = Votes.query.filter_by(user_id=user_id,
-                                      pitches_id=pitches_id).all()
-        return votes
+#     @classmethod
+#     def get_votes(cls, user_id, pitches_id):
+#         votes = Votes.query.filter_by(user_id=user_id,
+#                                       pitches_id=pitches_id).all()
+#         return votes
 
-    def __repr__(self):
-        return f'{self.vote}:{self.user_id}:{self.pitches_id}'
+#     def __repr__(self):
+#         return f'{self.vote}:{self.user_id}:{self.pitches_id}'
 
 
 class Comments(db.Model):
