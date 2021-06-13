@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% import 'macros.html' as macro %}
+
+{%block content%}
+
+<div class="container">
+    <h2 class="card-title h1-responsive text-center">Promotion Pitches</h2>
+    <hr>
+    <div class="row">
+        {{macro.displayPitches(promoPitches)}}
+    </div>
+</div>
+
+{%endblock%}

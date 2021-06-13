@@ -17,7 +17,7 @@
                             d="M13.5 10a.5.5 0 0 1 .5.5V12h1.5a.5.5 0 1 1 0 1H14v1.5a.5.5 0 1 1-1 0V13h-1.5a.5.5 0 0 1 0-1H13v-1.5a.5.5 0 0 1 .5-.5z">
                         </path>
                     </svg>
-                   Add New Category
+                    Add New Category
                 </button>
             </h4>
             <!-- <ol class="category-list">
@@ -33,7 +33,8 @@
             <p class="lead">You've got only 60 seconds to impress someone??</br>Worry not Pitchfest has got you covered
                 with the best pitches ever.</p>
             <p>You are also free share your pitch ideas with us</p>
-            <a class="btn btn-outline-white btn-md" href="{{url_for('main.new_pitch')}}"><i class="fas fa-clone left"></i>Create Pitch</a>
+            <a class="btn btn-outline-white btn-md" href="{{url_for('main.new_pitch')}}"><i
+                    class="fas fa-clone left"></i>Create Pitch</a>
         </div>
     </div>
 
@@ -47,7 +48,7 @@
                     <h3 class="">Interviews Pitches</h3>
                     <hr>
                     <p>A summary of how one will conduct themselves and answer questions during an interview </p>
-                    <a href="/" class="btn btn-default btn-center -center">
+                    <a href="{{url_for('main.getInterviewPitch')}}" class="btn btn-default btn-center -center">
                         View Pitch</a>
                 </div>
             </div>
@@ -58,7 +59,7 @@
                     <h3>Promotion Pitches</h3>
                     <hr>
                     <p>A summary of how promotional pitches should look like.How they are structured. </p>
-                    <a href="/" class="btn btn-default btn-center -center">
+                    <a href="{{url_for('main.getPromoPitch')}}" class="btn btn-default btn-center -center">
                         View Pitch</a>
                 </div>
             </div>
@@ -70,7 +71,7 @@
                     <h3>Product Pitches</h3>
                     <hr>
                     <p>A summary of what should be included in a product pitch </p>
-                    <a href="/" class="btn btn-default btn-center -center">
+                    <a href="{{url_for('main.getProductPitch')}}" class="btn btn-default btn-center -center">
                         View Pitch</a>
                 </div>
             </div>
@@ -83,7 +84,7 @@
                     <h3>Pickup Lines Pitches</h3>
                     <hr>
                     <p> Some of the pickup lines that should be included in your pitch</p>
-                    <a href="/" class="btn btn-default btn-center -center">
+                    <a href="{{url_for('main.getLinesPitch')}}" class="btn btn-default btn-center -center">
                         View Pitch</a>
                 </div>
             </div>
@@ -94,7 +95,7 @@
                     <h3>Funny Pitches</h3>
                     <hr>
                     <p> Funny pitches that should be included in your pitch</p>
-                    <a href="/" class="btn btn-default btn-center -center">
+                    <a href="{{url_for('main.getFunnyPitch')}}" class="btn btn-default btn-center -center">
                         View Pitch</a>
                 </div>
             </div>
@@ -102,10 +103,10 @@
         <div class="col-sm-4">
             <div class="card">
                 <div class="well well-lg p-3" style="text-align: center;">
-                    <h3>Cheesy Pitches</h3>
+                    <h3>Business Pitches</h3>
                     <hr>
-                    <p> Some of the Corny pitches</p>
-                    <a href="/" class="btn btn-default btn-center -center">
+                    <p> Some of the best business ideas</p>
+                    <a href="{{url_for('main.getBusinessPitch')}}" class="btn btn-default btn-center -center">
                         View Pitch</a>
                 </div>
             </div>

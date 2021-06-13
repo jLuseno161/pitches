@@ -13,6 +13,8 @@ class PitchForm(FlaskForm):
                                            'Select category'),
                                           ('interview', 'Interview'),
                                           ('product', 'Product'),
+                                          ('business', 'Business'),
+                                          ('funny', 'Funny'),
                                           ('promotion', 'Promotion'),
                                           ('pickup', 'Pickup Lines')],
                                  validators=[Required()])

@@ -60,6 +60,43 @@ def category(id):
     return render_template('category.html', pitches=pitches, category=category)
 
 
+@main.route('/category/Interview', methods=['GET'])
+def getInterviewPitch():
+    pitches = Pitch.get_pitches('interview')
+
+    return render_template('pitches/interview.html', interviewPitches=pitches)
+
+
+@main.route('/category/Pickuplines', methods=['GET'])
+def getLinesPitch():
+    pitches = Pitch.get_pitches('pickup')
+    return render_template('pitches/lines.html', pickupPitches=pitches)
+
+
+@main.route('/category/Product', methods=['GET'])
+def getProductPitch():
+    pitches = Pitch.get_pitches('product')
+    return render_template('pitches/product.html', productPitches=pitches)
+
+
+@main.route('/category/Business', methods=['GET'])
+def getBusinessPitch():
+    pitches = Pitch.get_pitches('business')
+    return render_template('pitches/business.html', businessPitches=pitches)
+
+
+@main.route('/category/Funny', methods=['GET'])
+def getFunnyPitch():
+    pitches = Pitch.get_pitches('funny')
+    return render_template('pitches/funny.html', funnyPitches=pitches)
+
+
+@main.route('/category/promotional', methods=['GET'])
+def getPromoPitch():
+    pitches = Pitch.get_pitches('promotion')
+    return render_template('pitches/promo.html', promoPitches=pitches)
+
+
 #create new category
 @main.route('/add/category', methods=['GET', 'POST'])
 @login_required
