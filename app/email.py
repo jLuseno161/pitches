@@ -12,7 +12,7 @@ subject_pref = 'Watchlist:'
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 2525
-app.config['MAIL_USERNAME'] = 'joo'
+app.config['MAIL_USERNAME'] = 'joyluseno61@gmail.com'
 app.config['MAIL_PASSWORD'] = 'nessyjoy'
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False

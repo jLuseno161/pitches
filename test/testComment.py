@@ -2,7 +2,7 @@ import unittest
 from app.models import Comments
 
 
-class CommentModelTest(unittest.TestCase):
+class CommentTest(unittest.TestCase):
     """
     Test Class to test the behaviour of the Comment class
     """

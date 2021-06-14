@@ -1,4 +1,3 @@
-from app import db
 import unittest
 from app.models import Pitch,User,Comments
 

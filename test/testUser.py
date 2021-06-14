@@ -1,6 +1,6 @@
 import unittest
 from app.models import User
-from os import urandom
+from app import db
 
 
 class UserTest(unittest.TestCase):
