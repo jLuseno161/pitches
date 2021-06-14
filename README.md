@@ -6,7 +6,7 @@
 
 ## Description
 
-A python program that allows one to read other peoples pitches or create their own. Also one can post a comment and lvote on the viewed pitches.
+A python program that allows one to read other peoples pitches or create their own. Also one can post a comment and vote on the viewed pitches.
 ## User stories
 
 The user is able to; 

@@ -4,7 +4,6 @@ from flask_login import UserMixin
 from . import login_manager
 from datetime import datetime
 
-
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -43,6 +42,7 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return f'User {self.username}'
 
+
 class Pitch(db.Model):
     """
     List of pitches in each category 
@@ -66,7 +66,7 @@ class Pitch(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    def save_vote(self:likes):
+    def save_vote(self: likes):
         db.session.add(self)
         db.session.commit()
 
@@ -83,31 +83,6 @@ class Pitch(db.Model):
     @classmethod
     def clear_pitches(cls):
         Pitch.all_pitches.clear()
-
-
-# class Votes(db.Model):
-#     """
-#     class to model votes
-#     """
-#     __tablename__ = 'votes'
-
-#     id = db.Column(db.Integer, primary_key=True)
-#     vote = db.Column(db.Integer)
-#     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-#     pitches_id = db.Column(db.Integer, db.ForeignKey("pitches.id"))
-
-#     def save_vote(self):
-#         db.session.add(self)
-#         db.session.commit()
-
-#     @classmethod
-#     def get_votes(cls, user_id, pitches_id):
-#         votes = Votes.query.filter_by(user_id=user_id,
-#                                       pitches_id=pitches_id).all()
-#         return votes
-
-#     def __repr__(self):
-#         return f'{self.vote}:{self.user_id}:{self.pitches_id}'
 
 
 class Comments(db.Model):
@@ -132,3 +107,27 @@ class Comments(db.Model):
         comment = Comments.query.order_by(
             Comments.time_posted.desc()).filter_by(pitches_id=id).all()
         return comment
+
+# class Votes(db.Model):
+#     """
+#     class to model votes
+#     """
+#     __tablename__ = 'votes'
+
+#     id = db.Column(db.Integer, primary_key=True)
+#     vote = db.Column(db.Integer)
+#     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+#     pitches_id = db.Column(db.Integer, db.ForeignKey("pitches.id"))
+
+#     def save_vote(self):
+#         db.session.add(self)
+#         db.session.commit()
+
+#     @classmethod
+#     def get_votes(cls, user_id, pitches_id):
+#         votes = Votes.query.filter_by(user_id=user_id,
+#                                       pitches_id=pitches_id).all()
+#         return votes
+
+#     def __repr__(self):
+#         return f'{self.vote}:{self.user_id}:{self.pitches_id}'

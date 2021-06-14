@@ -1,6 +1,6 @@
 <style>
-    .navbar{
-        background-color:rgb(3, 42, 49);
+    .navbar {
+        background-color: rgb(3, 42, 49);
         border: none;
     }
 </style>
@@ -17,14 +17,14 @@
                 <a class="navbar-brand" href="/" style="font-size: 24pt; color: goldenrod;">Pitchfest</a>
             </div>
             <div class="navbar-collapse collapse">
-
+                <ul class="nav navbar-nav" style="font-size: 15pt;">
+                    <li><a href="/">Home</a></li>
+                </ul>
                 <ul class="nav navbar-nav navbar-right" style="font-size: 15pt;">
                     {% if current_user.is_authenticated %}
-                    <li><a href="/">Home</a></li>
                     <li><a href="/">{{current_user.username.capitalize()}}</a></li>
                     <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
                     {% else %}
-                    <li><a href="/">Home</a></li>
                     <li><a href="{{url_for('auth.login')}}">Sign in</a></li>
                     {%endif%}
                 </ul>
