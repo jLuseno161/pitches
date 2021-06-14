@@ -3,7 +3,7 @@ from app.models import Pitch,User,Comments
 
 class TestPitch(unittest.TestCase):
     """
-    This is the class which we will use to do tests for the Pitch
+    This is the class which we will use to do tests for the Pitches
     """
 
     def setUp(self):
