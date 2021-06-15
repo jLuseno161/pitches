@@ -18,7 +18,6 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 mail = Mail(app)
 
-
 def mail_message(subject, template, to, **kwargs):
     email = Message(subject_pref + " " + subject,
                     sender=sender_email,
@@ -26,7 +25,6 @@ def mail_message(subject, template, to, **kwargs):
     email.body = render_template(template + ".txt", **kwargs)
     mail.send(email)
     # print(email)
-
 
 if __name__ == '__main__':
     app.run()
