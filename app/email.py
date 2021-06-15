@@ -11,6 +11,7 @@ sender_email = 'projectsmoringa@gmail.com'
 subject_pref = 'Pitchfest:'
 
 app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
+app.config['MAIL_PORT'] = 587
 app.config['MAIL_USERNAME'] = 'projectsmoringa@gmail.com'
 app.config['MAIL_PASSWORD'] = 'Moringa20'
 app.config['MAIL_USE_TLS'] = True
