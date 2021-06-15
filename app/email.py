@@ -7,13 +7,13 @@ from flask_mail import Mail
 app = Flask(__name__)
 mail = Mail(app)
 
-sender_email = 'joyluseno61@gmail.com'
+sender_email = 'projectsmoringa@gmail.com'
 subject_pref = 'Pitchfest:'
 
 app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
 app.config['MAIL_PORT'] = 587
-app.config['MAIL_USERNAME'] = 'joyluseno61@gmail.com'
-app.config['MAIL_PASSWORD'] = 'nessyjoy'
+app.config['MAIL_USERNAME'] = 'projectsmoringa@gmail.com'
+app.config['MAIL_PASSWORD'] = 'Moringa20'
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 mail = Mail(app)
@@ -25,7 +25,7 @@ def mail_message(subject, template, to, **kwargs):
                     recipients=[to])
     email.body = render_template(template + ".txt", **kwargs)
     mail.send(email)
-    print(email)
+    # print(email)
 
 
 if __name__ == '__main__':
