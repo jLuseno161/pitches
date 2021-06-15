@@ -41,7 +41,7 @@ def register():
                     password=form.password.data)
         db.session.add(user)
         db.session.commit()
-        mail_message("Welcome to watchlist",
+        mail_message("Welcome to Pitchfest",
                      "email/welcome_user",
                      user.email,
                      user=user)
